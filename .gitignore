@@ -1,0 +1,23 @@
+# 构建产物
+dist/
+build/
+*.exe
+*.pdb
+*.dll
+
+# IDE / 编辑器
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# 系统
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 临时
+*.bak
+*.tmp
+*.log

@@ -1,0 +1,51 @@
+name: build
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        shell: pwsh
+        run: |
+          Write-Host "csc: $env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+          Test-Path "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+
+      - name: Compile
+        shell: pwsh
+        run: |
+          $csc = "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+          New-Item -ItemType Directory -Force dist | Out-Null
+          & $csc /nologo /target:winexe /platform:anycpu /optimize+ /codepage:65001 `
+              /out:"dist\Bandizip747ProPatch.exe" `
+              /r:System.dll /r:System.Drawing.dll /r:System.Windows.Forms.dll `
+              "src\BandizipProPatch.cs"
+          if ($LASTEXITCODE -ne 0) { throw "compile failed" }
+          Get-FileHash "dist\Bandizip747ProPatch.exe" -Algorithm SHA256 | Format-List
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bandizip747ProPatch
+          path: dist/Bandizip747ProPatch.exe
+          if-no-files-found: error
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/Bandizip747ProPatch.exe
+          generate_release_notes: true
