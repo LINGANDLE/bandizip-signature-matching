@@ -8,7 +8,6 @@
 一键把 **Bandizip 7.47** 的标准版（免费版）状态切成 **专业版（Professional）**。
 只改本地 `Bandizip.exe` 的两个立即数，不联网、不写注册表、不装驱动、不带壳，自带原文件备份和一键还原。
 
-![补丁程序界面](docs/00-ui.png)
 
 ---
 
@@ -148,19 +147,16 @@ E89410FDFFC7802001000098000000                  (补丁点 2)
 
 ### 打补丁前
 
-`Bandizip (Standard)`，关于对话框显示「Bandizip 尚未注册」，带「立即购买 / 立即注册」按钮：
+`Bandizip (Standard)`，关于对话框显示「Bandizip 尚未注册」，密码恢复功能不可用：
 
-![原版](docs/01-before.png)
 
 ### 打补丁后
 
 标题栏变成 `Bandizip (Professional)`：
 
-![标题栏](docs/03-title.png)
 
-关于对话框变成「Bandizip 的使用权授予 / 邮箱地址 / 产品密钥」，购买按钮消失：
+关于对话框变成「Bandizip 的使用权授予 / 邮箱地址 / 产品密钥」：
 
-![解锁后](docs/02-after.png)
 
 ### 功能实测
 
